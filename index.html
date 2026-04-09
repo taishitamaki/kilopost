@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>国道位置情報取得システム</title>
+    <title>万世橋くん ver.0.1</title>
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="国道位置情報">
+    <meta name="apple-mobile-web-app-title" content="万世橋くん">
     <style>
         * {
             margin: 0;
@@ -16,182 +16,130 @@
         
         body {
             font-family: 'Hiragino Sans', 'Meiryo', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
             min-height: 100vh;
-            padding: 20px;
+            padding: 15px;
         }
         
         .container {
             max-width: 500px;
             margin: 0 auto;
             background: white;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
             overflow: hidden;
         }
         
         header {
-            background: #2c3e50;
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
             color: white;
-            padding: 20px;
+            padding: 25px 20px;
             text-align: center;
+            position: relative;
         }
         
         header h1 {
-            font-size: 20px;
+            font-size: 28px;
             margin-bottom: 5px;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        header .version {
+            font-size: 12px;
+            opacity: 0.9;
+            margin-bottom: 3px;
         }
         
         header p {
-            font-size: 12px;
-            opacity: 0.8;
+            font-size: 13px;
+            opacity: 0.95;
         }
         
         main {
-            padding: 30px 20px;
+            padding: 25px 20px;
         }
         
         .status {
             background: #ecf0f1;
             padding: 15px;
-            border-radius: 8px;
+            border-radius: 10px;
             margin-bottom: 20px;
             text-align: center;
             font-size: 14px;
             color: #7f8c8d;
+            border-left: 4px solid #3498db;
         }
         
-        .result {
-            background: #27ae60;
+        .result-main {
+            background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
             color: white;
-            padding: 30px;
-            border-radius: 10px;
+            padding: 25px;
+            border-radius: 12px;
             text-align: center;
-            font-size: 28px;
+            font-size: 24px;
             font-weight: bold;
             margin-bottom: 20px;
-            min-height: 100px;
+            min-height: 80px;
             display: flex;
             align-items: center;
             justify-content: center;
-            word-break: break-all;
+            box-shadow: 0 4px 15px rgba(39, 174, 96, 0.3);
+            line-height: 1.5;
         }
         
-        .result.hidden {
+        .result-main.hidden {
             display: none;
         }
         
-        .address-card {
-            background: #3498db;
-            color: white;
+        .address-section {
+            background: #ffffff;
+            border: 2px solid #3498db;
             padding: 20px;
-            border-radius: 10px;
+            border-radius: 12px;
             margin-bottom: 20px;
-            text-align: center;
         }
         
-        .address-card.hidden {
+        .address-section.hidden {
             display: none;
         }
         
-        .address-card .label {
-            font-size: 12px;
-            opacity: 0.9;
-            margin-bottom: 8px;
-        }
-        
-        .address-card .value {
-            font-size: 16px;
-            line-height: 1.6;
-        }
-        
-        .info-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-        
-        .info-card {
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 8px;
+        .address-section .section-title {
+            font-size: 14px;
+            color: #3498db;
+            font-weight: bold;
+            margin-bottom: 15px;
             text-align: center;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 8px;
         }
         
-        .info-card .label {
-            font-size: 12px;
-            color: #7f8c8d;
-            margin-bottom: 5px;
+        .address-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 8px;
         }
         
-        .info-card .value {
-            font-size: 18px;
+        .address-row:last-child {
+            margin-bottom: 0;
+        }
+        
+        .address-label {
+            font-size: 13px;
             font-weight: bold;
             color: #2c3e50;
+            min-width: 80px;
         }
         
-        button {
-            width: 100%;
-            padding: 15px;
-            background: #3498db;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-        
-        button:hover {
-            background: #2980b9;
-        }
-        
-        button:active {
-            transform: scale(0.98);
-        }
-        
-        button:disabled {
-            background: #95a5a6;
-            cursor: not-allowed;
-        }
-        
-        .coords {
-            font-size: 12px;
-            color: #7f8c8d;
-            text-align: center;
-            margin-top: 15px;
-        }
-        
-        .error {
-            background: #e74c3c;
-            color: white;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        
-        .error.hidden {
-            display: none;
-        }
-        
-        footer {
-            background: #ecf0f1;
-            padding: 15px;
-            text-align: center;
-            font-size: 12px;
-            color: #7f8c8d;
-        }
-        
-        .data-info {
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 1px solid #ecf0f1;
-            text-align: center;
-            font-size: 12px;
-            color: #7f8c8d;
+        .address-value {
+            font-size: 15px;
+            color: #34495e;
+            text-align: right;
+            flex: 1;
         }
         
         .loading-address {
@@ -207,13 +155,121 @@
         .loading-address.hidden {
             display: none;
         }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .info-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .info-card .label {
+            font-size: 11px;
+            color: #5a6c7d;
+            margin-bottom: 6px;
+            font-weight: bold;
+        }
+        
+        .info-card .value {
+            font-size: 18px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        button {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        button:disabled {
+            background: linear-gradient(135deg, #95a5a6 0%, #7f8c8d 100%);
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .coords {
+            font-size: 11px;
+            color: #7f8c8d;
+            text-align: center;
+            margin-top: 15px;
+            padding: 8px;
+            background: #f8f9fa;
+            border-radius: 6px;
+        }
+        
+        .error {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+        }
+        
+        .error.hidden {
+            display: none;
+        }
+        
+        footer {
+            background: #2c3e50;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 11px;
+        }
+        
+        footer .copyright {
+            margin-bottom: 5px;
+        }
+        
+        footer .author {
+            opacity: 0.8;
+            font-size: 10px;
+        }
+        
+        .data-info {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #ecf0f1;
+            text-align: center;
+            font-size: 11px;
+            color: #7f8c8d;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>🛣️ 国道位置情報取得システム</h1>
-            <p>万世橋出張所管内 維持補修工事</p>
+            <h1>🛣️ 万世橋くん</h1>
+            <div class="version">ver.0.1</div>
+            <p>国道位置情報取得システム</p>
         </header>
         
         <main>
@@ -227,13 +283,20 @@
                 住所を取得中...
             </div>
             
-            <div class="result hidden" id="result">
-                現在位置は254 U 12.24kpです
+            <div class="result-main hidden" id="resultMain">
+                現在位置は254 12.24kpです
             </div>
             
-            <div class="address-card hidden" id="addressCard">
-                <div class="label">📍 住所</div>
-                <div class="value" id="address">---</div>
+            <div class="address-section hidden" id="addressSection">
+                <div class="section-title">📍 道路両側の住所</div>
+                <div class="address-row">
+                    <div class="address-label">上り線側</div>
+                    <div class="address-value" id="addressUp">---</div>
+                </div>
+                <div class="address-row">
+                    <div class="address-label">下り線側</div>
+                    <div class="address-value" id="addressDown">---</div>
+                </div>
             </div>
             
             <div class="info-grid">
@@ -242,16 +305,16 @@
                     <div class="value" id="routeNumber">---</div>
                 </div>
                 <div class="info-card">
-                    <div class="label">上下線</div>
-                    <div class="value" id="direction">---</div>
-                </div>
-                <div class="info-card">
                     <div class="label">キロポスト</div>
                     <div class="value" id="kilopost">---</div>
                 </div>
                 <div class="info-card">
                     <div class="label">最寄り距離</div>
                     <div class="value" id="distance">---</div>
+                </div>
+                <div class="info-card">
+                    <div class="label">データ件数</div>
+                    <div class="value" id="dataCount">---</div>
                 </div>
             </div>
             
@@ -267,80 +330,76 @@
         </main>
         
         <footer>
-            &copy; 2026 万世橋出張所 | GPS精度により誤差が生じる場合があります
+            <div class="copyright">&copy; 2026 万世橋出張所</div>
+            <div class="author">Created by Tamaki</div>
         </footer>
     </div>
 
     <script>
-        // キロポストデータ（10m間隔で線形補間）
         let roadData = [];
         
-        // 元データ（各キロポスト位置）
         const baseData = [
-            { route: '4', direction: 'U', kp: 1.00, lat: 35.690690, lon: 139.774619 },
-            { route: '4', direction: 'U', kp: 2.00, lat: 35.700183, lon: 139.775255 },
-            { route: '4', direction: 'U', kp: 3.00, lat: 35.709472, lon: 139.776272 },
-            { route: '4', direction: 'U', kp: 4.00, lat: 35.717957, lon: 139.781044 },
-            { route: '4', direction: 'U', kp: 5.00, lat: 35.724687, lon: 139.787621 },
-            { route: '4', direction: 'U', kp: 6.00, lat: 35.732621, lon: 139.792887 },
-            { route: '4', direction: 'U', kp: 7.00, lat: 35.741737, lon: 139.799956 },
-            { route: '4', direction: 'U', kp: 8.00, lat: 35.749352, lon: 139.799415 },
-            { route: '4', direction: 'U', kp: 9.00, lat: 35.757377, lon: 139.800656 },
-            { route: '4', direction: 'U', kp: 10.00, lat: 35.766744, lon: 139.800367 },
-            { route: '4', direction: 'U', kp: 11.00, lat: 35.775518, lon: 139.800315 },
-            { route: '4', direction: 'U', kp: 12.00, lat: 35.784669, lon: 139.800287 },
-            { route: '4', direction: 'U', kp: 13.00, lat: 35.794383, lon: 139.800239 },
-            { route: '4', direction: 'U', kp: 14.00, lat: 35.802597, lon: 139.801536 },
-            { route: '17', direction: 'U', kp: 1.00, lat: 35.685544, lon: 139.766092 },
-            { route: '17', direction: 'U', kp: 2.00, lat: 35.693581, lon: 139.767758 },
-            { route: '17', direction: 'U', kp: 3.00, lat: 35.703617, lon: 139.763188 },
-            { route: '17', direction: 'U', kp: 4.00, lat: 35.712483, lon: 139.759497 },
-            { route: '17', direction: 'U', kp: 5.00, lat: 35.720488, lon: 139.752512 },
-            { route: '17', direction: 'U', kp: 6.00, lat: 35.727968, lon: 139.744868 },
-            { route: '17', direction: 'U', kp: 7.00, lat: 35.734077, lon: 139.737142 },
-            { route: '17', direction: 'U', kp: 8.00, lat: 35.741605, lon: 139.728331 },
-            { route: '17', direction: 'U', kp: 9.00, lat: 35.749010, lon: 139.719416 },
-            { route: '17', direction: 'U', kp: 10.00, lat: 35.755370, lon: 139.709038 },
-            { route: '17', direction: 'U', kp: 11.00, lat: 35.760423, lon: 139.700641 },
-            { route: '17', direction: 'U', kp: 12.00, lat: 35.768843, lon: 139.700385 },
-            { route: '17', direction: 'U', kp: 13.00, lat: 35.778008, lon: 139.697929 },
-            { route: '17', direction: 'U', kp: 14.00, lat: 35.781356, lon: 139.690824 },
-            { route: '17', direction: 'U', kp: 15.00, lat: 35.787092, lon: 139.685169 },
-            { route: '17BP', direction: 'U', kp: 16.00, lat: 35.777075, lon: 139.661103 },
-            { route: '17BP', direction: 'U', kp: 17.00, lat: 35.781420, lon: 139.649393 },
-            { route: '17BP', direction: 'U', kp: 18.00, lat: 35.788234, lon: 139.643231 },
-            { route: '254', direction: 'U', kp: 1.00, lat: 35.708475, lon: 139.750192 },
-            { route: '254', direction: 'U', kp: 2.00, lat: 35.717225, lon: 139.741043 },
-            { route: '254', direction: 'U', kp: 3.00, lat: 35.723181, lon: 139.733411 },
-            { route: '254', direction: 'U', kp: 4.00, lat: 35.729678, lon: 139.726093 },
-            { route: '254', direction: 'U', kp: 5.00, lat: 35.732236, lon: 139.720578 },
-            { route: '254', direction: 'U', kp: 6.00, lat: 35.738425, lon: 139.711792 },
-            { route: '254', direction: 'U', kp: 7.00, lat: 35.742535, lon: 139.703462 },
-            { route: '254', direction: 'U', kp: 8.00, lat: 35.750381, lon: 139.694878 },
-            { route: '254', direction: 'U', kp: 9.00, lat: 35.756139, lon: 139.685413 },
-            { route: '254', direction: 'U', kp: 10.00, lat: 35.762689, lon: 139.677311 },
-            { route: '254', direction: 'U', kp: 11.00, lat: 35.767225, lon: 139.666038 },
-            { route: '254', direction: 'U', kp: 12.00, lat: 35.776012, lon: 139.656039 },
-            { route: '254', direction: 'U', kp: 13.00, lat: 35.767957, lon: 139.646370 },
-            { route: '254', direction: 'U', kp: 14.00, lat: 35.773739, lon: 139.636419 },
-            { route: '254', direction: 'U', kp: 15.00, lat: 35.778944, lon: 139.626766 }
+            { route: '4', kp: 1.00, lat: 35.690690, lon: 139.774619 },
+            { route: '4', kp: 2.00, lat: 35.700183, lon: 139.775255 },
+            { route: '4', kp: 3.00, lat: 35.709472, lon: 139.776272 },
+            { route: '4', kp: 4.00, lat: 35.717957, lon: 139.781044 },
+            { route: '4', kp: 5.00, lat: 35.724687, lon: 139.787621 },
+            { route: '4', kp: 6.00, lat: 35.732621, lon: 139.792887 },
+            { route: '4', kp: 7.00, lat: 35.741737, lon: 139.799956 },
+            { route: '4', kp: 8.00, lat: 35.749352, lon: 139.799415 },
+            { route: '4', kp: 9.00, lat: 35.757377, lon: 139.800656 },
+            { route: '4', kp: 10.00, lat: 35.766744, lon: 139.800367 },
+            { route: '4', kp: 11.00, lat: 35.775518, lon: 139.800315 },
+            { route: '4', kp: 12.00, lat: 35.784669, lon: 139.800287 },
+            { route: '4', kp: 13.00, lat: 35.794383, lon: 139.800239 },
+            { route: '4', kp: 14.00, lat: 35.802597, lon: 139.801536 },
+            { route: '17', kp: 1.00, lat: 35.685544, lon: 139.766092 },
+            { route: '17', kp: 2.00, lat: 35.693581, lon: 139.767758 },
+            { route: '17', kp: 3.00, lat: 35.703617, lon: 139.763188 },
+            { route: '17', kp: 4.00, lat: 35.712483, lon: 139.759497 },
+            { route: '17', kp: 5.00, lat: 35.720488, lon: 139.752512 },
+            { route: '17', kp: 6.00, lat: 35.727968, lon: 139.744868 },
+            { route: '17', kp: 7.00, lat: 35.734077, lon: 139.737142 },
+            { route: '17', kp: 8.00, lat: 35.741605, lon: 139.728331 },
+            { route: '17', kp: 9.00, lat: 35.749010, lon: 139.719416 },
+            { route: '17', kp: 10.00, lat: 35.755370, lon: 139.709038 },
+            { route: '17', kp: 11.00, lat: 35.760423, lon: 139.700641 },
+            { route: '17', kp: 12.00, lat: 35.768843, lon: 139.700385 },
+            { route: '17', kp: 13.00, lat: 35.778008, lon: 139.697929 },
+            { route: '17', kp: 14.00, lat: 35.781356, lon: 139.690824 },
+            { route: '17', kp: 15.00, lat: 35.787092, lon: 139.685169 },
+            { route: '17BP', kp: 16.00, lat: 35.777075, lon: 139.661103 },
+            { route: '17BP', kp: 17.00, lat: 35.781420, lon: 139.649393 },
+            { route: '17BP', kp: 18.00, lat: 35.788234, lon: 139.643231 },
+            { route: '254', kp: 1.00, lat: 35.708475, lon: 139.750192 },
+            { route: '254', kp: 2.00, lat: 35.717225, lon: 139.741043 },
+            { route: '254', kp: 3.00, lat: 35.723181, lon: 139.733411 },
+            { route: '254', kp: 4.00, lat: 35.729678, lon: 139.726093 },
+            { route: '254', kp: 5.00, lat: 35.732236, lon: 139.720578 },
+            { route: '254', kp: 6.00, lat: 35.738425, lon: 139.711792 },
+            { route: '254', kp: 7.00, lat: 35.742535, lon: 139.703462 },
+            { route: '254', kp: 8.00, lat: 35.750381, lon: 139.694878 },
+            { route: '254', kp: 9.00, lat: 35.756139, lon: 139.685413 },
+            { route: '254', kp: 10.00, lat: 35.762689, lon: 139.677311 },
+            { route: '254', kp: 11.00, lat: 35.767225, lon: 139.666038 },
+            { route: '254', kp: 12.00, lat: 35.776012, lon: 139.656039 },
+            { route: '254', kp: 13.00, lat: 35.767957, lon: 139.646370 },
+            { route: '254', kp: 14.00, lat: 35.773739, lon: 139.636419 },
+            { route: '254', kp: 15.00, lat: 35.778944, lon: 139.626766 }
         ];
         
-        // 10m間隔でデータを生成する関数
         function interpolateData() {
             roadData = [];
             
-            // 路線ごとにグループ化
             const routeGroups = {};
             baseData.forEach(point => {
-                const key = `${point.route}_${point.direction}`;
+                const key = point.route;
                 if (!routeGroups[key]) {
                     routeGroups[key] = [];
                 }
                 routeGroups[key].push(point);
             });
             
-            // 各路線ごとに補間
             Object.keys(routeGroups).forEach(key => {
                 const points = routeGroups[key].sort((a, b) => a.kp - b.kp);
                 
@@ -348,7 +407,6 @@
                     const start = points[i];
                     const end = points[i + 1];
                     
-                    // 1km間を100分割（10m間隔）
                     const steps = 100;
                     for (let j = 0; j <= steps; j++) {
                         const ratio = j / steps;
@@ -358,7 +416,6 @@
                         
                         roadData.push({
                             route: start.route,
-                            direction: start.direction,
                             kp: interpolatedKp,
                             lat: interpolatedLat,
                             lon: interpolatedLon
@@ -372,14 +429,15 @@
         
         let dataLoaded = false;
         
-        // ページ読み込み時の初期化
         window.onload = function() {
             interpolateData();
             dataLoaded = true;
             
             const dataInfo = document.getElementById('dataInfo');
+            const dataCount = document.getElementById('dataCount');
             dataInfo.textContent = `キロポストデータ: ${roadData.length}件（10m間隔） 読み込み完了`;
-            console.log('国道位置情報取得システム起動');
+            dataCount.textContent = `${roadData.length}件`;
+            console.log('万世橋くん ver.0.1 起動');
             console.log(`元データ: ${baseData.length}件`);
             console.log(`補間後データ: ${roadData.length}件`);
         };
@@ -393,14 +451,14 @@
             const btn = document.getElementById('getLocationBtn');
             const status = document.getElementById('status');
             const error = document.getElementById('error');
-            const result = document.getElementById('result');
-            const addressCard = document.getElementById('addressCard');
+            const resultMain = document.getElementById('resultMain');
+            const addressSection = document.getElementById('addressSection');
             
             btn.disabled = true;
             status.textContent = '位置情報を取得中...';
             error.classList.add('hidden');
-            result.classList.add('hidden');
-            addressCard.classList.add('hidden');
+            resultMain.classList.add('hidden');
+            addressSection.classList.add('hidden');
             
             if (!navigator.geolocation) {
                 showError('お使いのブラウザは位置情報に対応していません');
@@ -421,7 +479,7 @@
                     
                     if (nearest) {
                         displayResult(nearest);
-                        getAddress(lat, lon);
+                        getBothSideAddresses(nearest, lat, lon);
                         status.textContent = '位置情報取得成功';
                     } else {
                         showError('近くに登録された国道データが見つかりません（検索範囲: 500m以内）');
@@ -471,7 +529,6 @@
                 }
             });
             
-            // 最寄りが500m以内の場合のみ有効とする
             if (nearest && nearest.distance <= 500) {
                 return nearest;
             }
@@ -499,70 +556,97 @@
         }
         
         function displayResult(road) {
-            const result = document.getElementById('result');
+            const resultMain = document.getElementById('resultMain');
             const routeNumber = document.getElementById('routeNumber');
-            const direction = document.getElementById('direction');
             const kilopost = document.getElementById('kilopost');
             const distance = document.getElementById('distance');
             
-            const directionText = road.direction === 'U' ? '上り' : '下り';
-            
-            result.textContent = `現在位置は${road.route} ${road.direction} ${road.kp.toFixed(2)}kpです`;
-            result.classList.remove('hidden');
+            resultMain.textContent = `現在位置は${road.route} ${road.kp.toFixed(2)}kpです`;
+            resultMain.classList.remove('hidden');
             
             routeNumber.textContent = `国道${road.route}号`;
-            direction.textContent = directionText;
             kilopost.textContent = `${road.kp.toFixed(2)}kp`;
             distance.textContent = `${road.distance.toFixed(0)}m`;
         }
         
-        function getAddress(lat, lon) {
+        function getBothSideAddresses(road, currentLat, currentLon) {
             const loadingAddress = document.getElementById('loadingAddress');
-            const addressCard = document.getElementById('addressCard');
-            const addressElement = document.getElementById('address');
+            const addressSection = document.getElementById('addressSection');
             
             loadingAddress.classList.remove('hidden');
-            addressCard.classList.add('hidden');
             
-            // Google Geocoding API（逆ジオコーディング）
+            const nextPoint = findNextKilopost(road);
+            if (!nextPoint) {
+                loadingAddress.classList.add('hidden');
+                return;
+            }
+            
+            const perpendicular = calculatePerpendicular(road.lat, road.lon, nextPoint.lat, nextPoint.lon);
+            const offset = 0.0001;
+            
+            const side1Lat = road.lat + perpendicular.lat * offset;
+            const side1Lon = road.lon + perpendicular.lon * offset;
+            const side2Lat = road.lat - perpendicular.lat * offset;
+            const side2Lon = road.lon - perpendicular.lon * offset;
+            
+            Promise.all([
+                getAddress(side1Lat, side1Lon),
+                getAddress(side2Lat, side2Lon)
+            ]).then(([address1, address2]) => {
+                loadingAddress.classList.add('hidden');
+                
+                document.getElementById('addressUp').textContent = address1 || '取得できませんでした';
+                document.getElementById('addressDown').textContent = address2 || '取得できませんでした';
+                
+                addressSection.classList.remove('hidden');
+            }).catch(error => {
+                console.error('住所取得エラー:', error);
+                loadingAddress.classList.add('hidden');
+            });
+        }
+        
+        function findNextKilopost(currentRoad) {
+            const sameRoute = roadData.filter(r => r.route === currentRoad.route && r.kp > currentRoad.kp);
+            if (sameRoute.length > 0) {
+                return sameRoute[0];
+            }
+            return null;
+        }
+        
+        function calculatePerpendicular(lat1, lon1, lat2, lon2) {
+            const dx = lon2 - lon1;
+            const dy = lat2 - lat1;
+            const length = Math.sqrt(dx * dx + dy * dy);
+            
+            return {
+                lat: -dx / length,
+                lon: dy / length
+            };
+        }
+        
+        function getAddress(lat, lon) {
             const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&addressdetails=1&accept-language=ja`;
             
-            fetch(url)
+            return fetch(url)
                 .then(response => response.json())
                 .then(data => {
-                    loadingAddress.classList.add('hidden');
-                    
                     if (data && data.address) {
                         const addr = data.address;
-                        let fullAddress = '';
+                        let result = '';
                         
-                        // 住所を組み立て
-                        if (addr.state) fullAddress += addr.state;
-                        if (addr.city) fullAddress += addr.city;
-                        if (addr.town) fullAddress += addr.town;
-                        if (addr.suburb) fullAddress += addr.suburb;
-                        if (addr.village) fullAddress += addr.village;
-                        if (addr.neighbourhood) fullAddress += addr.neighbourhood;
-                        if (addr.road) fullAddress += addr.road;
-                        if (addr.house_number) fullAddress += addr.house_number;
+                        if (addr.town) result += addr.town;
+                        else if (addr.suburb) result += addr.suburb;
+                        else if (addr.neighbourhood) result += addr.neighbourhood;
                         
-                        // 代替表示
-                        if (!fullAddress && data.display_name) {
-                            fullAddress = data.display_name;
-                        }
+                        if (addr.house_number) result += addr.house_number;
                         
-                        addressElement.textContent = fullAddress || '住所を取得できませんでした';
-                        addressCard.classList.remove('hidden');
-                    } else {
-                        addressElement.textContent = '住所を取得できませんでした';
-                        addressCard.classList.remove('hidden');
+                        return result || data.display_name;
                     }
+                    return null;
                 })
                 .catch(error => {
                     console.error('住所取得エラー:', error);
-                    loadingAddress.classList.add('hidden');
-                    addressElement.textContent = '住所取得に失敗しました';
-                    addressCard.classList.remove('hidden');
+                    return null;
                 });
         }
         
