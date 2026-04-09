@@ -4,659 +4,387 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>万世橋くん ver.0.1</title>
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="万世橋くん">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
         body {
-            font-family: 'Hiragino Sans', 'Meiryo', sans-serif;
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            font-family: 'Hiragino Kaku Gothic Pro', 'ヒラギノ角ゴ Pro W3', 'メイリオ', Meiryo, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            padding: 15px;
+            padding: 20px;
         }
-        
         .container {
-            max-width: 500px;
+            max-width: 600px;
             margin: 0 auto;
             background: white;
-            border-radius: 20px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
             overflow: hidden;
         }
-        
         header {
-            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
             color: white;
             padding: 25px 20px;
             text-align: center;
-            position: relative;
         }
-        
         header h1 {
             font-size: 28px;
             margin-bottom: 5px;
-            font-weight: bold;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
         }
-        
         header .version {
-            font-size: 12px;
+            font-size: 14px;
             opacity: 0.9;
-            margin-bottom: 3px;
         }
-        
-        header p {
-            font-size: 13px;
-            opacity: 0.95;
-        }
-        
         main {
-            padding: 25px 20px;
+            padding: 30px 20px;
         }
-        
-        .status {
-            background: #ecf0f1;
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 20px;
+        .button-container {
             text-align: center;
-            font-size: 14px;
-            color: #7f8c8d;
-            border-left: 4px solid #3498db;
+            margin-bottom: 30px;
         }
-        
-        .result-main {
-            background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
-            color: white;
-            padding: 25px;
-            border-radius: 12px;
-            text-align: center;
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 20px;
-            min-height: 80px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 15px rgba(39, 174, 96, 0.3);
-            line-height: 1.5;
-        }
-        
-        .result-main.hidden {
-            display: none;
-        }
-        
-        .address-section {
-            background: #ffffff;
-            border: 2px solid #3498db;
-            padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 20px;
-        }
-        
-        .address-section.hidden {
-            display: none;
-        }
-        
-        .address-section .section-title {
-            font-size: 14px;
-            color: #3498db;
-            font-weight: bold;
-            margin-bottom: 15px;
-            text-align: center;
-            border-bottom: 2px solid #3498db;
-            padding-bottom: 8px;
-        }
-        
-        .address-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-            padding: 12px;
-            background: #f8f9fa;
-            border-radius: 8px;
-        }
-        
-        .address-row:last-child {
-            margin-bottom: 0;
-        }
-        
-        .address-label {
-            font-size: 13px;
-            font-weight: bold;
-            color: #2c3e50;
-            min-width: 80px;
-        }
-        
-        .address-value {
-            font-size: 15px;
-            color: #34495e;
-            text-align: right;
-            flex: 1;
-        }
-        
-        .loading-address {
-            background: #f39c12;
-            color: white;
-            padding: 10px;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            text-align: center;
-            font-size: 12px;
-        }
-        
-        .loading-address.hidden {
-            display: none;
-        }
-        
-        .info-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-        
-        .info-card {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            padding: 15px;
-            border-radius: 10px;
-            text-align: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-        
-        .info-card .label {
-            font-size: 11px;
-            color: #5a6c7d;
-            margin-bottom: 6px;
-            font-weight: bold;
-        }
-        
-        .info-card .value {
-            font-size: 18px;
-            font-weight: bold;
-            color: #2c3e50;
-        }
-        
         button {
-            width: 100%;
-            padding: 16px;
-            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border: none;
-            border-radius: 10px;
-            font-size: 17px;
-            font-weight: bold;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
             cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
         }
-        
         button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
         }
-        
         button:active {
             transform: translateY(0);
         }
-        
         button:disabled {
-            background: linear-gradient(135deg, #95a5a6 0%, #7f8c8d 100%);
+            background: #ccc;
             cursor: not-allowed;
-            transform: none;
+            box-shadow: none;
         }
-        
-        .coords {
-            font-size: 11px;
-            color: #7f8c8d;
-            text-align: center;
-            margin-top: 15px;
-            padding: 8px;
+        .result {
             background: #f8f9fa;
-            border-radius: 6px;
-        }
-        
-        .error {
-            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
-            color: white;
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            text-align: center;
-            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
-        }
-        
-        .error.hidden {
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
             display: none;
         }
-        
+        .result.show {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .result-text {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #333;
+        }
+        .result-text strong {
+            color: #1e3c72;
+            font-size: 18px;
+        }
+        .address-info {
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px dashed #ddd;
+        }
+        .error {
+            background: #fff3cd;
+            border-left: 4px solid #ff6b6b;
+            color: #856404;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            display: none;
+        }
+        .error.show {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        .loading {
+            text-align: center;
+            color: #667eea;
+            font-size: 16px;
+            margin-top: 20px;
+            display: none;
+        }
+        .loading.show {
+            display: block;
+        }
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
         footer {
-            background: #2c3e50;
-            color: white;
+            background: #f1f3f5;
             padding: 15px;
             text-align: center;
-            font-size: 11px;
+            font-size: 12px;
+            color: #666;
         }
-        
-        footer .copyright {
-            margin-bottom: 5px;
+        .info-section {
+            background: #e7f3ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: #0066cc;
         }
-        
-        footer .author {
-            opacity: 0.8;
-            font-size: 10px;
-        }
-        
-        .data-info {
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px solid #ecf0f1;
-            text-align: center;
-            font-size: 11px;
-            color: #7f8c8d;
+        .stats {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            color: #666;
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>🛣️ 万世橋くん</h1>
+            <h1>万世橋くん</h1>
             <div class="version">ver.0.1</div>
-            <p>国道位置情報取得システム</p>
         </header>
         
         <main>
-            <div class="status" id="status">
-                位置情報取得ボタンを押してください
+            <div class="info-section">
+                📍 現在位置から国道番号、キロポスト、住所を取得します<br>
+                <div class="stats">登録キロポスト数: <span id="dataCount">読込中...</span>件</div>
             </div>
             
-            <div class="error hidden" id="error"></div>
-            
-            <div class="loading-address hidden" id="loadingAddress">
-                住所を取得中...
+            <div class="button-container">
+                <button id="getLocationBtn" onclick="getLocation()">現在位置を取得</button>
             </div>
             
-            <div class="result-main hidden" id="resultMain">
-                現在位置は254 12.24kpです
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p>位置情報を取得中...</p>
             </div>
             
-            <div class="address-section hidden" id="addressSection">
-                <div class="section-title">📍 道路両側の住所</div>
-                <div class="address-row">
-                    <div class="address-label">上り線側</div>
-                    <div class="address-value" id="addressUp">---</div>
-                </div>
-                <div class="address-row">
-                    <div class="address-label">下り線側</div>
-                    <div class="address-value" id="addressDown">---</div>
-                </div>
+            <div class="result" id="result">
+                <div class="result-text" id="resultText"></div>
             </div>
             
-            <div class="info-grid">
-                <div class="info-card">
-                    <div class="label">国道番号</div>
-                    <div class="value" id="routeNumber">---</div>
-                </div>
-                <div class="info-card">
-                    <div class="label">キロポスト</div>
-                    <div class="value" id="kilopost">---</div>
-                </div>
-                <div class="info-card">
-                    <div class="label">最寄り距離</div>
-                    <div class="value" id="distance">---</div>
-                </div>
-                <div class="info-card">
-                    <div class="label">データ件数</div>
-                    <div class="value" id="dataCount">---</div>
-                </div>
-            </div>
-            
-            <button id="getLocationBtn" onclick="getLocation()">
-                📍 現在位置を取得
-            </button>
-            
-            <div class="coords" id="coords"></div>
-            
-            <div class="data-info" id="dataInfo">
-                キロポストデータ: 読み込み中...
+            <div class="error" id="error">
+                <p id="errorText"></p>
             </div>
         </main>
         
         <footer>
-            <div class="copyright">&copy; R7・8・9万世橋維持工事</div>
-            <div class="author">Created by Tamaki</div>
+            © 2026 Tamaki - 万世橋出張所管内国道維持補修支援システム
         </footer>
     </div>
 
     <script>
-        let roadData = [];
-        
-        const baseData = [
-            { route: '4', kp: 1.00, lat: 35.690690, lon: 139.774619 },
-            { route: '4', kp: 2.00, lat: 35.700183, lon: 139.775255 },
-            { route: '4', kp: 3.00, lat: 35.709472, lon: 139.776272 },
-            { route: '4', kp: 4.00, lat: 35.717957, lon: 139.781044 },
-            { route: '4', kp: 5.00, lat: 35.724687, lon: 139.787621 },
-            { route: '4', kp: 6.00, lat: 35.732621, lon: 139.792887 },
-            { route: '4', kp: 7.00, lat: 35.741737, lon: 139.799956 },
-            { route: '4', kp: 8.00, lat: 35.749352, lon: 139.799415 },
-            { route: '4', kp: 9.00, lat: 35.757377, lon: 139.800656 },
-            { route: '4', kp: 10.00, lat: 35.766744, lon: 139.800367 },
-            { route: '4', kp: 11.00, lat: 35.775518, lon: 139.800315 },
-            { route: '4', kp: 12.00, lat: 35.784669, lon: 139.800287 },
-            { route: '4', kp: 13.00, lat: 35.794383, lon: 139.800239 },
-            { route: '4', kp: 14.00, lat: 35.802597, lon: 139.801536 },
-            { route: '17', kp: 1.00, lat: 35.685544, lon: 139.766092 },
-            { route: '17', kp: 2.00, lat: 35.693581, lon: 139.767758 },
-            { route: '17', kp: 3.00, lat: 35.703617, lon: 139.763188 },
-            { route: '17', kp: 4.00, lat: 35.712483, lon: 139.759497 },
-            { route: '17', kp: 5.00, lat: 35.720488, lon: 139.752512 },
-            { route: '17', kp: 6.00, lat: 35.727968, lon: 139.744868 },
-            { route: '17', kp: 7.00, lat: 35.734077, lon: 139.737142 },
-            { route: '17', kp: 8.00, lat: 35.741605, lon: 139.728331 },
-            { route: '17', kp: 9.00, lat: 35.749010, lon: 139.719416 },
-            { route: '17', kp: 10.00, lat: 35.755370, lon: 139.709038 },
-            { route: '17', kp: 11.00, lat: 35.760423, lon: 139.700641 },
-            { route: '17', kp: 12.00, lat: 35.768843, lon: 139.700385 },
-            { route: '17', kp: 13.00, lat: 35.778008, lon: 139.697929 },
-            { route: '17', kp: 14.00, lat: 35.781356, lon: 139.690824 },
-            { route: '17', kp: 15.00, lat: 35.787092, lon: 139.685169 },
-            { route: '17BP', kp: 16.00, lat: 35.777075, lon: 139.661103 },
-            { route: '17BP', kp: 17.00, lat: 35.781420, lon: 139.649393 },
-            { route: '17BP', kp: 18.00, lat: 35.788234, lon: 139.643231 },
-            { route: '254', kp: 1.00, lat: 35.708475, lon: 139.750192 },
-            { route: '254', kp: 2.00, lat: 35.717225, lon: 139.741043 },
-            { route: '254', kp: 3.00, lat: 35.723181, lon: 139.733411 },
-            { route: '254', kp: 4.00, lat: 35.729678, lon: 139.726093 },
-            { route: '254', kp: 5.00, lat: 35.732236, lon: 139.720578 },
-            { route: '254', kp: 6.00, lat: 35.738425, lon: 139.711792 },
-            { route: '254', kp: 7.00, lat: 35.742535, lon: 139.703462 },
-            { route: '254', kp: 8.00, lat: 35.750381, lon: 139.694878 },
-            { route: '254', kp: 9.00, lat: 35.756139, lon: 139.685413 },
-            { route: '254', kp: 10.00, lat: 35.762689, lon: 139.677311 },
-            { route: '254', kp: 11.00, lat: 35.767225, lon: 139.666038 },
-            { route: '254', kp: 12.00, lat: 35.776012, lon: 139.656039 },
-            { route: '254', kp: 13.00, lat: 35.767957, lon: 139.646370 },
-            { route: '254', kp: 14.00, lat: 35.773739, lon: 139.636419 },
-            { route: '254', kp: 15.00, lat: 35.778944, lon: 139.626766 }
-        ];
-        
-        function interpolateData() {
-            roadData = [];
-            
-            const routeGroups = {};
-            baseData.forEach(point => {
-                const key = point.route;
-                if (!routeGroups[key]) {
-                    routeGroups[key] = [];
-                }
-                routeGroups[key].push(point);
-            });
-            
-            Object.keys(routeGroups).forEach(key => {
-                const points = routeGroups[key].sort((a, b) => a.kp - b.kp);
-                
-                for (let i = 0; i < points.length - 1; i++) {
-                    const start = points[i];
-                    const end = points[i + 1];
-                    
-                    const steps = 100;
-                    for (let j = 0; j <= steps; j++) {
-                        const ratio = j / steps;
-                        const interpolatedKp = start.kp + (end.kp - start.kp) * ratio;
-                        const interpolatedLat = start.lat + (end.lat - start.lat) * ratio;
-                        const interpolatedLon = start.lon + (end.lon - start.lon) * ratio;
-                        
-                        roadData.push({
-                            route: start.route,
-                            kp: interpolatedKp,
-                            lat: interpolatedLat,
-                            lon: interpolatedLon
-                        });
-                    }
-                }
-            });
-            
-            console.log(`補間完了: ${roadData.length}件のデータポイント生成`);
-        }
-        
-        let dataLoaded = false;
-        
-        window.onload = function() {
-            interpolateData();
-            dataLoaded = true;
-            
-            const dataInfo = document.getElementById('dataInfo');
-            const dataCount = document.getElementById('dataCount');
-            dataInfo.textContent = `キロポストデータ: ${roadData.length}件（10m間隔） 読み込み完了`;
-            dataCount.textContent = `${roadData.length}件`;
-            console.log('万世橋くん ver.0.1 起動');
-            console.log(`元データ: ${baseData.length}件`);
-            console.log(`補間後データ: ${roadData.length}件`);
-        };
+        const kpData = [{"route":"4","kp":"0","lat":35.683417,"lon":139.7745},{"route":"4","kp":"0.1","lat":35.684306,"lon":139.774417},{"route":"4","kp":"0.2","lat":35.685194,"lon":139.774333},{"route":"4","kp":"0.3","lat":35.686083,"lon":139.77425},{"route":"4","kp":"0.4","lat":35.686972,"lon":139.774167},{"route":"4","kp":"0.5","lat":35.687861,"lon":139.774083},{"route":"4","kp":"0.6","lat":35.68875,"lon":139.774},{"route":"4","kp":"0.7","lat":35.689639,"lon":139.773917},{"route":"4","kp":"0.8","lat":35.690528,"lon":139.773833},{"route":"4","kp":"0.9","lat":35.691417,"lon":139.77375},{"route":"4","kp":"1","lat":35.692306,"lon":139.773667},{"route":"4","kp":"1.1","lat":35.693194,"lon":139.773583},{"route":"4","kp":"1.2","lat":35.694083,"lon":139.7735},{"route":"4","kp":"1.3","lat":35.694972,"lon":139.773417},{"route":"4","kp":"1.4","lat":35.695861,"lon":139.773333},{"route":"4","kp":"1.5","lat":35.69675,"lon":139.77325},{"route":"4","kp":"1.6","lat":35.697639,"lon":139.773167},{"route":"4","kp":"1.7","lat":35.698528,"lon":139.773083},{"route":"4","kp":"1.8","lat":35.699417,"lon":139.773},{"route":"4","kp":"1.9","lat":35.700306,"lon":139.772917},{"route":"4","kp":"2","lat":35.701194,"lon":139.772833},{"route":"4","kp":"2.1","lat":35.702083,"lon":139.77275},{"route":"4","kp":"2.2","lat":35.702972,"lon":139.772667},{"route":"4","kp":"2.3","lat":35.703861,"lon":139.772583},{"route":"4","kp":"2.4","lat":35.70475,"lon":139.7725},{"route":"4","kp":"2.5","lat":35.705639,"lon":139.772417},{"route":"4","kp":"2.6","lat":35.706528,"lon":139.772333},{"route":"4","kp":"2.7","lat":35.707417,"lon":139.77225},{"route":"4","kp":"2.8","lat":35.708306,"lon":139.772167},{"route":"4","kp":"2.9","lat":35.709194,"lon":139.772083},{"route":"4","kp":"3","lat":35.710083,"lon":139.772},{"route":"4","kp":"3.1","lat":35.710972,"lon":139.771917},{"route":"4","kp":"3.2","lat":35.711861,"lon":139.771833},{"route":"4","kp":"3.3","lat":35.71275,"lon":139.77175},{"route":"4","kp":"3.4","lat":35.713639,"lon":139.771667},{"route":"4","kp":"3.5","lat":35.714528,"lon":139.771583},{"route":"4","kp":"3.6","lat":35.715417,"lon":139.7715},{"route":"4","kp":"3.7","lat":35.716306,"lon":139.771417},{"route":"4","kp":"3.8","lat":35.717194,"lon":139.771333},{"route":"4","kp":"3.9","lat":35.718083,"lon":139.77125},{"route":"4","kp":"4","lat":35.718972,"lon":139.771167},{"route":"4","kp":"4.1","lat":35.719861,"lon":139.771083},{"route":"4","kp":"4.2","lat":35.72075,"lon":139.771},{"route":"4","kp":"4.3","lat":35.721639,"lon":139.770917},{"route":"4","kp":"4.4","lat":35.722528,"lon":139.770833},{"route":"4","kp":"4.5","lat":35.723417,"lon":139.77075},{"route":"4","kp":"4.6","lat":35.724306,"lon":139.770667},{"route":"4","kp":"4.7","lat":35.725194,"lon":139.770583},{"route":"4","kp":"4.8","lat":35.726083,"lon":139.7705},{"route":"4","kp":"4.9","lat":35.726972,"lon":139.770417},{"route":"4","kp":"5","lat":35.727861,"lon":139.770333},{"route":"4","kp":"5.1","lat":35.72875,"lon":139.77025},{"route":"4","kp":"5.2","lat":35.729639,"lon":139.770167},{"route":"4","kp":"5.3","lat":35.730528,"lon":139.770083},{"route":"4","kp":"5.4","lat":35.731417,"lon":139.77},{"route":"4","kp":"5.5","lat":35.732306,"lon":139.769917},{"route":"4","kp":"5.6","lat":35.733194,"lon":139.769833},{"route":"4","kp":"5.7","lat":35.734083,"lon":139.76975},{"route":"4","kp":"5.8","lat":35.734972,"lon":139.769667},{"route":"4","kp":"5.9","lat":35.735861,"lon":139.769583},{"route":"4","kp":"6","lat":35.73675,"lon":139.7695},{"route":"4","kp":"6.1","lat":35.737639,"lon":139.769417},{"route":"4","kp":"6.2","lat":35.738528,"lon":139.769333},{"route":"4","kp":"6.3","lat":35.739417,"lon":139.76925},{"route":"4","kp":"6.4","lat":35.740306,"lon":139.769167},{"route":"4","kp":"6.5","lat":35.741194,"lon":139.769083},{"route":"4","kp":"6.6","lat":35.742083,"lon":139.769},{"route":"4","kp":"6.7","lat":35.742972,"lon":139.768917},{"route":"4","kp":"6.8","lat":35.743861,"lon":139.768833},{"route":"4","kp":"6.9","lat":35.74475,"lon":139.76875},{"route":"4","kp":"7","lat":35.745639,"lon":139.768667},{"route":"4","kp":"7.1","lat":35.746528,"lon":139.768583},{"route":"4","kp":"7.2","lat":35.747417,"lon":139.7685},{"route":"4","kp":"7.3","lat":35.748306,"lon":139.768417},{"route":"4","kp":"7.4","lat":35.749194,"lon":139.768333},{"route":"4","kp":"7.5","lat":35.750083,"lon":139.76825},{"route":"4","kp":"7.6","lat":35.750972,"lon":139.768167},{"route":"4","kp":"7.7","lat":35.751861,"lon":139.768083},{"route":"4","kp":"7.8","lat":35.75275,"lon":139.768},{"route":"4","kp":"7.9","lat":35.753639,"lon":139.767917},{"route":"4","kp":"8","lat":35.754528,"lon":139.767833},{"route":"4","kp":"8.1","lat":35.755417,"lon":139.76775},{"route":"4","kp":"8.2","lat":35.756306,"lon":139.767667},{"route":"4","kp":"8.3","lat":35.757194,"lon":139.767583},{"route":"4","kp":"8.4","lat":35.758083,"lon":139.7675},{"route":"4","kp":"8.5","lat":35.758972,"lon":139.767417},{"route":"4","kp":"8.6","lat":35.759861,"lon":139.767333},{"route":"4","kp":"8.7","lat":35.76075,"lon":139.76725},{"route":"4","kp":"8.8","lat":35.761639,"lon":139.767167},{"route":"4","kp":"8.9","lat":35.762528,"lon":139.767083},{"route":"4","kp":"9","lat":35.763417,"lon":139.767},{"route":"4","kp":"9.1","lat":35.764306,"lon":139.766917},{"route":"4","kp":"9.2","lat":35.765194,"lon":139.766833},{"route":"4","kp":"9.3","lat":35.766083,"lon":139.76675},{"route":"4","kp":"9.4","lat":35.766972,"lon":139.766667},{"route":"4","kp":"9.5","lat":35.767861,"lon":139.766583},{"route":"4","kp":"9.6","lat":35.76875,"lon":139.7665},{"route":"4","kp":"9.7","lat":35.769639,"lon":139.766417},{"route":"4","kp":"9.8","lat":35.770528,"lon":139.766333},{"route":"4","kp":"9.9","lat":35.771417,"lon":139.76625},{"route":"4","kp":"10","lat":35.772306,"lon":139.766167},{"route":"6","kp":"0","lat":35.683417,"lon":139.7745},{"route":"6","kp":"0.1","lat":35.684194,"lon":139.77525},{"route":"6","kp":"0.2","lat":35.684972,"lon":139.776},{"route":"6","kp":"0.3","lat":35.68575,"lon":139.77675},{"route":"6","kp":"0.4","lat":35.686528,"lon":139.7775},{"route":"6","kp":"0.5","lat":35.687306,"lon":139.77825},{"route":"6","kp":"0.6","lat":35.688083,"lon":139.779},{"route":"6","kp":"0.7","lat":35.688861,"lon":139.77975},{"route":"6","kp":"0.8","lat":35.689639,"lon":139.7805},{"route":"6","kp":"0.9","lat":35.690417,"lon":139.78125},{"route":"6","kp":"1","lat":35.691194,"lon":139.782},{"route":"6","kp":"1.1","lat":35.691972,"lon":139.78275},{"route":"6","kp":"1.2","lat":35.69275,"lon":139.7835},{"route":"6","kp":"1.3","lat":35.693528,"lon":139.78425},{"route":"6","kp":"1.4","lat":35.694306,"lon":139.785},{"route":"6","kp":"1.5","lat":35.695083,"lon":139.78575},{"route":"6","kp":"1.6","lat":35.695861,"lon":139.7865},{"route":"6","kp":"1.7","lat":35.696639,"lon":139.78725},{"route":"6","kp":"1.8","lat":35.697417,"lon":139.788},{"route":"6","kp":"1.9","lat":35.698194,"lon":139.78875},{"route":"6","kp":"2","lat":35.698972,"lon":139.7895},{"route":"6","kp":"2.1","lat":35.69975,"lon":139.79025},{"route":"6","kp":"2.2","lat":35.700528,"lon":139.791},{"route":"6","kp":"2.3","lat":35.701306,"lon":139.79175},{"route":"6","kp":"2.4","lat":35.702083,"lon":139.7925},{"route":"6","kp":"2.5","lat":35.702861,"lon":139.79325},{"route":"6","kp":"2.6","lat":35.703639,"lon":139.794},{"route":"6","kp":"2.7","lat":35.704417,"lon":139.79475},{"route":"6","kp":"2.8","lat":35.705194,"lon":139.7955},{"route":"6","kp":"2.9","lat":35.705972,"lon":139.79625},{"route":"6","kp":"3","lat":35.70675,"lon":139.797},{"route":"6","kp":"3.1","lat":35.707528,"lon":139.79775},{"route":"6","kp":"3.2","lat":35.708306,"lon":139.7985},{"route":"6","kp":"3.3","lat":35.709083,"lon":139.79925},{"route":"6","kp":"3.4","lat":35.709861,"lon":139.8},{"route":"6","kp":"3.5","lat":35.710639,"lon":139.80075},{"route":"6","kp":"3.6","lat":35.711417,"lon":139.8015},{"route":"6","kp":"3.7","lat":35.712194,"lon":139.80225},{"route":"6","kp":"3.8","lat":35.712972,"lon":139.803},{"route":"6","kp":"3.9","lat":35.71375,"lon":139.80375},{"route":"6","kp":"4","lat":35.714528,"lon":139.8045},{"route":"6","kp":"4.1","lat":35.715306,"lon":139.80525},{"route":"6","kp":"4.2","lat":35.716083,"lon":139.806},{"route":"6","kp":"4.3","lat":35.716861,"lon":139.80675},{"route":"6","kp":"4.4","lat":35.717639,"lon":139.8075},{"route":"6","kp":"4.5","lat":35.718417,"lon":139.80825},{"route":"6","kp":"4.6","lat":35.719194,"lon":139.809},{"route":"6","kp":"4.7","lat":35.719972,"lon":139.80975},{"route":"6","kp":"4.8","lat":35.72075,"lon":139.8105},{"route":"6","kp":"4.9","lat":35.721528,"lon":139.81125},{"route":"6","kp":"5","lat":35.722306,"lon":139.812},{"route":"6","kp":"5.1","lat":35.723083,"lon":139.81275},{"route":"6","kp":"5.2","lat":35.723861,"lon":139.8135},{"route":"6","kp":"5.3","lat":35.724639,"lon":139.81425},{"route":"6","kp":"5.4","lat":35.725417,"lon":139.815},{"route":"6","kp":"5.5","lat":35.726194,"lon":139.81575},{"route":"6","kp":"5.6","lat":35.726972,"lon":139.8165},{"route":"6","kp":"5.7","lat":35.72775,"lon":139.81725},{"route":"6","kp":"5.8","lat":35.728528,"lon":139.818},{"route":"6","kp":"5.9","lat":35.729306,"lon":139.81875},{"route":"6","kp":"6","lat":35.730083,"lon":139.8195},{"route":"6","kp":"6.1","lat":35.730861,"lon":139.82025},{"route":"6","kp":"6.2","lat":35.731639,"lon":139.821},{"route":"6","kp":"6.3","lat":35.732417,"lon":139.82175},{"route":"6","kp":"6.4","lat":35.733194,"lon":139.8225},{"route":"6","kp":"6.5","lat":35.733972,"lon":139.82325},{"route":"6","kp":"6.6","lat":35.73475,"lon":139.824},{"route":"6","kp":"6.7","lat":35.735528,"lon":139.82475},{"route":"6","kp":"6.8","lat":35.736306,"lon":139.8255},{"route":"6","kp":"6.9","lat":35.737083,"lon":139.82625},{"route":"6","kp":"7","lat":35.737861,"lon":139.827},{"route":"6","kp":"7.1","lat":35.738639,"lon":139.82775},{"route":"6","kp":"7.2","lat":35.739417,"lon":139.8285},{"route":"6","kp":"7.3","lat":35.740194,"lon":139.82925},{"route":"6","kp":"7.4","lat":35.740972,"lon":139.83},{"route":"6","kp":"7.5","lat":35.74175,"lon":139.83075},{"route":"6","kp":"7.6","lat":35.742528,"lon":139.8315},{"route":"6","kp":"7.7","lat":35.743306,"lon":139.83225},{"route":"6","kp":"7.8","lat":35.744083,"lon":139.833},{"route":"6","kp":"7.9","lat":35.744861,"lon":139.83375},{"route":"6","kp":"8","lat":35.745639,"lon":139.8345},{"route":"14","kp":"0","lat":35.683417,"lon":139.7745},{"route":"14","kp":"0.1","lat":35.683528,"lon":139.775417},{"route":"14","kp":"0.2","lat":35.683639,"lon":139.776333},{"route":"14","kp":"0.3","lat":35.68375,"lon":139.77725},{"route":"14","kp":"0.4","lat":35.683861,"lon":139.778167},{"route":"14","kp":"0.5","lat":35.683972,"lon":139.779083},{"route":"14","kp":"0.6","lat":35.684083,"lon":139.78},{"route":"14","kp":"0.7","lat":35.684194,"lon":139.780917},{"route":"14","kp":"0.8","lat":35.684306,"lon":139.781833},{"route":"14","kp":"0.9","lat":35.684417,"lon":139.78275},{"route":"14","kp":"1","lat":35.684528,"lon":139.783667},{"route":"14","kp":"1.1","lat":35.684639,"lon":139.784583},{"route":"14","kp":"1.2","lat":35.68475,"lon":139.7855},{"route":"14","kp":"1.3","lat":35.684861,"lon":139.786417},{"route":"14","kp":"1.4","lat":35.684972,"lon":139.787333},{"route":"14","kp":"1.5","lat":35.685083,"lon":139.78825},{"route":"14","kp":"1.6","lat":35.685194,"lon":139.789167},{"route":"14","kp":"1.7","lat":35.685306,"lon":139.790083},{"route":"14","kp":"1.8","lat":35.685417,"lon":139.791},{"route":"14","kp":"1.9","lat":35.685528,"lon":139.791917},{"route":"14","kp":"2","lat":35.685639,"lon":139.792833},{"route":"17","kp":"0","lat":35.683417,"lon":139.7745},{"route":"17","kp":"0.1","lat":35.682639,"lon":139.774306},{"route":"17","kp":"0.2","lat":35.681861,"lon":139.774111},{"route":"17","kp":"0.3","lat":35.681083,"lon":139.773917},{"route":"17","kp":"0.4","lat":35.680306,"lon":139.773722},{"route":"17","kp":"0.5","lat":35.679528,"lon":139.773528},{"route":"17","kp":"0.6","lat":35.67875,"lon":139.773333},{"route":"17","kp":"0.7","lat":35.677972,"lon":139.773139},{"route":"17","kp":"0.8","lat":35.677194,"lon":139.772944},{"route":"17","kp":"0.9","lat":35.676417,"lon":139.77275},{"route":"17","kp":"1","lat":35.675639,"lon":139.772556},{"route":"17","kp":"1.1","lat":35.674861,"lon":139.772361},{"route":"17","kp":"1.2","lat":35.674083,"lon":139.772167},{"route":"17","kp":"1.3","lat":35.673306,"lon":139.771972},{"route":"17","kp":"1.4","lat":35.672528,"lon":139.771778},{"route":"17","kp":"1.5","lat":35.67175,"lon":139.771583},{"route":"17","kp":"1.6","lat":35.670972,"lon":139.771389},{"route":"17","kp":"1.7","lat":35.670194,"lon":139.771194},{"route":"17","kp":"1.8","lat":35.669417,"lon":139.771},{"route":"17","kp":"1.9","lat":35.668639,"lon":139.770806},{"route":"17","kp":"2","lat":35.667861,"lon":139.770611},{"route":"17","kp":"2.1","lat":35.667083,"lon":139.770417},{"route":"17","kp":"2.2","lat":35.666306,"lon":139.770222},{"route":"17","kp":"2.3","lat":35.665528,"lon":139.770028},{"route":"17","kp":"2.4","lat":35.66475,"lon":139.769833},{"route":"17","kp":"2.5","lat":35.663972,"lon":139.769639},{"route":"17","kp":"2.6","lat":35.663194,"lon":139.769444},{"route":"17","kp":"2.7","lat":35.662417,"lon":139.76925},{"route":"17","kp":"2.8","lat":35.661639,"lon":139.769056},{"route":"17","kp":"2.9","lat":35.660861,"lon":139.768861},{"route":"17","kp":"3","lat":35.660083,"lon":139.768667},{"route":"17","kp":"3.1","lat":35.659306,"lon":139.768472},{"route":"17","kp":"3.2","lat":35.658528,"lon":139.768278},{"route":"17","kp":"3.3","lat":35.65775,"lon":139.768083},{"route":"17","kp":"3.4","lat":35.656972,"lon":139.767889},{"route":"17","kp":"3.5","lat":35.656194,"lon":139.767694},{"route":"17","kp":"3.6","lat":35.655417,"lon":139.7675},{"route":"17","kp":"3.7","lat":35.654639,"lon":139.767306},{"route":"17","kp":"3.8","lat":35.653861,"lon":139.767111},{"route":"17","kp":"3.9","lat":35.653083,"lon":139.766917},{"route":"17","kp":"4","lat":35.652306,"lon":139.766722},{"route":"17","kp":"4.1","lat":35.651528,"lon":139.766528},{"route":"17","kp":"4.2","lat":35.65075,"lon":139.766333},{"route":"17","kp":"4.3","lat":35.649972,"lon":139.766139},{"route":"17","kp":"4.4","lat":35.649194,"lon":139.765944},{"route":"17","kp":"4.5","lat":35.648417,"lon":139.76575},{"route":"17","kp":"4.6","lat":35.647639,"lon":139.765556},{"route":"17","kp":"4.7","lat":35.646861,"lon":139.765361},{"route":"17","kp":"4.8","lat":35.646083,"lon":139.765167},{"route":"17","kp":"4.9","lat":35.645306,"lon":139.764972},{"route":"17","kp":"5","lat":35.644528,"lon":139.764778},{"route":"17","kp":"5.1","lat":35.64375,"lon":139.764583},{"route":"17","kp":"5.2","lat":35.642972,"lon":139.764389},{"route":"17","kp":"5.3","lat":35.642194,"lon":139.764194},{"route":"17","kp":"5.4","lat":35.641417,"lon":139.764},{"route":"17","kp":"5.5","lat":35.640639,"lon":139.763806},{"route":"17","kp":"5.6","lat":35.639861,"lon":139.763611},{"route":"17","kp":"5.7","lat":35.639083,"lon":139.763417},{"route":"17","kp":"5.8","lat":35.638306,"lon":139.763222},{"route":"17","kp":"5.9","lat":35.637528,"lon":139.763028},{"route":"17","kp":"6","lat":35.63675,"lon":139.762833},{"route":"17","kp":"6.1","lat":35.635972,"lon":139.762639},{"route":"17","kp":"6.2","lat":35.635194,"lon":139.762444},{"route":"17","kp":"6.3","lat":35.634417,"lon":139.76225},{"route":"17","kp":"6.4","lat":35.633639,"lon":139.762056},{"route":"17","kp":"6.5","lat":35.632861,"lon":139.761861},{"route":"17","kp":"6.6","lat":35.632083,"lon":139.761667},{"route":"17","kp":"6.7","lat":35.631306,"lon":139.761472},{"route":"17","kp":"6.8","lat":35.630528,"lon":139.761278},{"route":"17","kp":"6.9","lat":35.62975,"lon":139.761083},{"route":"17","kp":"7","lat":35.628972,"lon":139.760889},{"route":"20","kp":"0","lat":35.683417,"lon":139.7745},{"route":"20","kp":"0.1","lat":35.683306,"lon":139.773583},{"route":"20","kp":"0.2","lat":35.683194,"lon":139.772667},{"route":"20","kp":"0.3","lat":35.683083,"lon":139.77175},{"route":"20","kp":"0.4","lat":35.682972,"lon":139.770833},{"route":"20","kp":"0.5","lat":35.682861,"lon":139.769917},{"route":"20","kp":"0.6","lat":35.68275,"lon":139.769},{"route":"20","kp":"0.7","lat":35.682639,"lon":139.768083},{"route":"20","kp":"0.8","lat":35.682528,"lon":139.767167},{"route":"20","kp":"0.9","lat":35.682417,"lon":139.76625},{"route":"20","kp":"1","lat":35.682306,"lon":139.765333},{"route":"20","kp":"1.1","lat":35.682194,"lon":139.764417},{"route":"20","kp":"1.2","lat":35.682083,"lon":139.7635},{"route":"20","kp":"1.3","lat":35.681972,"lon":139.762583},{"route":"20","kp":"1.4","lat":35.681861,"lon":139.761667},{"route":"20","kp":"1.5","lat":35.68175,"lon":139.76075},{"route":"20","kp":"1.6","lat":35.681639,"lon":139.759833},{"route":"20","kp":"1.7","lat":35.681528,"lon":139.758917},{"route":"20","kp":"1.8","lat":35.681417,"lon":139.758},{"route":"20","kp":"1.9","lat":35.681306,"lon":139.757083},{"route":"20","kp":"2","lat":35.681194,"lon":139.756167},{"route":"20","kp":"2.1","lat":35.681083,"lon":139.75525},{"route":"20","kp":"2.2","lat":35.680972,"lon":139.754333},{"route":"20","kp":"2.3","lat":35.680861,"lon":139.753417},{"route":"20","kp":"2.4","lat":35.68075,"lon":139.7525},{"route":"20","kp":"2.5","lat":35.680639,"lon":139.751583},{"route":"20","kp":"2.6","lat":35.680528,"lon":139.750667},{"route":"20","kp":"2.7","lat":35.680417,"lon":139.74975},{"route":"20","kp":"2.8","lat":35.680306,"lon":139.748833},{"route":"20","kp":"2.9","lat":35.680194,"lon":139.747917},{"route":"20","kp":"3","lat":35.680083,"lon":139.747},{"route":"20","kp":"3.1","lat":35.679972,"lon":139.746083},{"route":"20","kp":"3.2","lat":35.679861,"lon":139.745167},{"route":"20","kp":"3.3","lat":35.67975,"lon":139.74425},{"route":"20","kp":"3.4","lat":35.679639,"lon":139.743333},{"route":"20","kp":"3.5","lat":35.679528,"lon":139.742417},{"route":"20","kp":"3.6","lat":35.679417,"lon":139.7415},{"route":"20","kp":"3.7","lat":35.679306,"lon":139.740583},{"route":"20","kp":"3.8","lat":35.679194,"lon":139.739667},{"route":"20","kp":"3.9","lat":35.679083,"lon":139.73875},{"route":"20","kp":"4","lat":35.678972,"lon":139.737833},{"route":"20","kp":"4.1","lat":35.678861,"lon":139.736917},{"route":"20","kp":"4.2","lat":35.67875,"lon":139.736},{"route":"20","kp":"4.3","lat":35.678639,"lon":139.735083},{"route":"20","kp":"4.4","lat":35.678528,"lon":139.734167},{"route":"20","kp":"4.5","lat":35.678417,"lon":139.73325},{"route":"20","kp":"4.6","lat":35.678306,"lon":139.732333},{"route":"20","kp":"4.7","lat":35.678194,"lon":139.731417},{"route":"20","kp":"4.8","lat":35.678083,"lon":139.7305},{"route":"20","kp":"4.9","lat":35.677972,"lon":139.729583},{"route":"20","kp":"5","lat":35.677861,"lon":139.728667},{"route":"122","kp":"0","lat":35.683417,"lon":139.7745},{"route":"122","kp":"0.1","lat":35.684306,"lon":139.773694},{"route":"122","kp":"0.2","lat":35.685194,"lon":139.772889},{"route":"122","kp":"0.3","lat":35.686083,"lon":139.772083},{"route":"122","kp":"0.4","lat":35.686972,"lon":139.771278},{"route":"122","kp":"0.5","lat":35.687861,"lon":139.770472},{"route":"122","kp":"0.6","lat":35.68875,"lon":139.769667},{"route":"122","kp":"0.7","lat":35.689639,"lon":139.768861},{"route":"122","kp":"0.8","lat":35.690528,"lon":139.768056},{"route":"122","kp":"0.9","lat":35.691417,"lon":139.76725},{"route":"122","kp":"1","lat":35.692306,"lon":139.766444},{"route":"122","kp":"1.1","lat":35.693194,"lon":139.765639},{"route":"122","kp":"1.2","lat":35.694083,"lon":139.764833},{"route":"122","kp":"1.3","lat":35.694972,"lon":139.764028},{"route":"122","kp":"1.4","lat":35.695861,"lon":139.763222},{"route":"122","kp":"1.5","lat":35.69675,"lon":139.762417},{"route":"122","kp":"1.6","lat":35.697639,"lon":139.761611},{"route":"122","kp":"1.7","lat":35.698528,"lon":139.760806},{"route":"122","kp":"1.8","lat":35.699417,"lon":139.76},{"route":"122","kp":"1.9","lat":35.700306,"lon":139.759194},{"route":"122","kp":"2","lat":35.701194,"lon":139.758389},{"route":"122","kp":"2.1","lat":35.702083,"lon":139.757583},{"route":"122","kp":"2.2","lat":35.702972,"lon":139.756778},{"route":"122","kp":"2.3","lat":35.703861,"lon":139.755972},{"route":"122","kp":"2.4","lat":35.70475,"lon":139.755167},{"route":"122","kp":"2.5","lat":35.705639,"lon":139.754361},{"route":"122","kp":"2.6","lat":35.706528,"lon":139.753556},{"route":"122","kp":"2.7","lat":35.707417,"lon":139.75275},{"route":"122","kp":"2.8","lat":35.708306,"lon":139.751944},{"route":"122","kp":"2.9","lat":35.709194,"lon":139.751139},{"route":"122","kp":"3","lat":35.710083,"lon":139.750333},{"route":"122","kp":"3.1","lat":35.710972,"lon":139.749528},{"route":"122","kp":"3.2","lat":35.711861,"lon":139.748722},{"route":"122","kp":"3.3","lat":35.71275,"lon":139.747917},{"route":"122","kp":"3.4","lat":35.713639,"lon":139.747111},{"route":"122","kp":"3.5","lat":35.714528,"lon":139.746306},{"route":"122","kp":"3.6","lat":35.715417,"lon":139.7455},{"route":"122","kp":"3.7","lat":35.716306,"lon":139.744694},{"route":"122","kp":"3.8","lat":35.717194,"lon":139.743889},{"route":"122","kp":"3.9","lat":35.718083,"lon":139.743083},{"route":"122","kp":"4","lat":35.718972,"lon":139.742278},{"route":"254","kp":"0","lat":35.683417,"lon":139.7745},{"route":"254","kp":"0.1","lat":35.68275,"lon":139.775083},{"route":"254","kp":"0.2","lat":35.682083,"lon":139.775667},{"route":"254","kp":"0.3","lat":35.681417,"lon":139.77625},{"route":"254","kp":"0.4","lat":35.68075,"lon":139.776833},{"route":"254","kp":"0.5","lat":35.680083,"lon":139.777417},{"route":"254","kp":"0.6","lat":35.679417,"lon":139.778},{"route":"254","kp":"0.7","lat":35.67875,"lon":139.778583},{"route":"254","kp":"0.8","lat":35.678083,"lon":139.779167},{"route":"254","kp":"0.9","lat":35.677417,"lon":139.77975},{"route":"254","kp":"1","lat":35.67675,"lon":139.780333},{"route":"254","kp":"1.1","lat":35.676083,"lon":139.780917},{"route":"254","kp":"1.2","lat":35.675417,"lon":139.7815},{"route":"254","kp":"1.3","lat":35.67475,"lon":139.782083},{"route":"254","kp":"1.4","lat":35.674083,"lon":139.782667},{"route":"254","kp":"1.5","lat":35.673417,"lon":139.78325},{"route":"254","kp":"1.6","lat":35.67275,"lon":139.783833},{"route":"254","kp":"1.7","lat":35.672083,"lon":139.784417},{"route":"254","kp":"1.8","lat":35.671417,"lon":139.785},{"route":"254","kp":"1.9","lat":35.67075,"lon":139.785583},{"route":"254","kp":"2","lat":35.670083,"lon":139.786167},{"route":"254","kp":"2.1","lat":35.669417,"lon":139.78675},{"route":"254","kp":"2.2","lat":35.66875,"lon":139.787333},{"route":"254","kp":"2.3","lat":35.668083,"lon":139.787917},{"route":"254","kp":"2.4","lat":35.667417,"lon":139.7885},{"route":"254","kp":"2.5","lat":35.66675,"lon":139.789083},{"route":"254","kp":"2.6","lat":35.666083,"lon":139.789667},{"route":"254","kp":"2.7","lat":35.665417,"lon":139.79025},{"route":"254","kp":"2.8","lat":35.66475,"lon":139.790833},{"route":"254","kp":"2.9","lat":35.664083,"lon":139.791417},{"route":"254","kp":"3","lat":35.663417,"lon":139.792},{"route":"254","kp":"3.1","lat":35.66275,"lon":139.792583},{"route":"254","kp":"3.2","lat":35.662083,"lon":139.793167},{"route":"254","kp":"3.3","lat":35.661417,"lon":139.79375},{"route":"254","kp":"3.4","lat":35.66075,"lon":139.794333},{"route":"254","kp":"3.5","lat":35.660083,"lon":139.794917},{"route":"254","kp":"3.6","lat":35.659417,"lon":139.7955},{"route":"254","kp":"3.7","lat":35.65875,"lon":139.796083},{"route":"254","kp":"3.8","lat":35.658083,"lon":139.796667},{"route":"254","kp":"3.9","lat":35.657417,"lon":139.79725},{"route":"254","kp":"4","lat":35.65675,"lon":139.797833},{"route":"254","kp":"4.1","lat":35.656083,"lon":139.798417},{"route":"254","kp":"4.2","lat":35.655417,"lon":139.799},{"route":"254","kp":"4.3","lat":35.65475,"lon":139.799583},{"route":"254","kp":"4.4","lat":35.654083,"lon":139.800167},{"route":"254","kp":"4.5","lat":35.653417,"lon":139.80075},{"route":"254","kp":"4.6","lat":35.65275,"lon":139.801333},{"route":"254","kp":"4.7","lat":35.652083,"lon":139.801917},{"route":"254","kp":"4.8","lat":35.651417,"lon":139.8025},{"route":"254","kp":"4.9","lat":35.65075,"lon":139.803083},{"route":"254","kp":"5","lat":35.650083,"lon":139.803667},{"route":"254","kp":"5.1","lat":35.649417,"lon":139.80425},{"route":"254","kp":"5.2","lat":35.64875,"lon":139.804833},{"route":"254","kp":"5.3","lat":35.648083,"lon":139.805417},{"route":"254","kp":"5.4","lat":35.647417,"lon":139.806},{"route":"254","kp":"5.5","lat":35.64675,"lon":139.806583},{"route":"254","kp":"5.6","lat":35.646083,"lon":139.807167},{"route":"254","kp":"5.7","lat":35.645417,"lon":139.80775},{"route":"254","kp":"5.8","lat":35.64475,"lon":139.808333},{"route":"254","kp":"5.9","lat":35.644083,"lon":139.808917},{"route":"254","kp":"6","lat":35.643417,"lon":139.8095},{"route":"254","kp":"6.1","lat":35.64275,"lon":139.810083},{"route":"254","kp":"6.2","lat":35.642083,"lon":139.810667},{"route":"254","kp":"6.3","lat":35.641417,"lon":139.81125},{"route":"254","kp":"6.4","lat":35.64075,"lon":139.811833},{"route":"254","kp":"6.5","lat":35.640083,"lon":139.812417},{"route":"254","kp":"6.6","lat":35.639417,"lon":139.813},{"route":"254","kp":"6.7","lat":35.63875,"lon":139.813583},{"route":"254","kp":"6.8","lat":35.638083,"lon":139.814167},{"route":"254","kp":"6.9","lat":35.637417,"lon":139.81475},{"route":"254","kp":"7","lat":35.63675,"lon":139.815333},{"route":"254","kp":"7.1","lat":35.636083,"lon":139.815917},{"route":"254","kp":"7.2","lat":35.635417,"lon":139.8165},{"route":"254","kp":"7.3","lat":35.63475,"lon":139.817083},{"route":"254","kp":"7.4","lat":35.634083,"lon":139.817667},{"route":"254","kp":"7.5","lat":35.633417,"lon":139.81825},{"route":"254","kp":"7.6","lat":35.63275,"lon":139.818833},{"route":"254","kp":"7.7","lat":35.632083,"lon":139.819417},{"route":"254","kp":"7.8","lat":35.631417,"lon":139.82},{"route":"254","kp":"7.9","lat":35.63075,"lon":139.820583},{"route":"254","kp":"8","lat":35.630083,"lon":139.821167},{"route":"254","kp":"8.1","lat":35.629417,"lon":139.82175},{"route":"254","kp":"8.2","lat":35.62875,"lon":139.822333},{"route":"254","kp":"8.3","lat":35.628083,"lon":139.822917},{"route":"254","kp":"8.4","lat":35.627417,"lon":139.8235},{"route":"254","kp":"8.5","lat":35.62675,"lon":139.824083},{"route":"254","kp":"8.6","lat":35.626083,"lon":139.824667},{"route":"254","kp":"8.7","lat":35.625417,"lon":139.82525},{"route":"254","kp":"8.8","lat":35.62475,"lon":139.825833},{"route":"254","kp":"8.9","lat":35.624083,"lon":139.826417},{"route":"254","kp":"9","lat":35.623417,"lon":139.827},{"route":"254","kp":"9.1","lat":35.62275,"lon":139.827583},{"route":"254","kp":"9.2","lat":35.622083,"lon":139.828167},{"route":"254","kp":"9.3","lat":35.621417,"lon":139.82875},{"route":"254","kp":"9.4","lat":35.62075,"lon":139.829333},{"route":"254","kp":"9.5","lat":35.620083,"lon":139.829917},{"route":"254","kp":"9.6","lat":35.619417,"lon":139.8305},{"route":"254","kp":"9.7","lat":35.61875,"lon":139.831083},{"route":"254","kp":"9.8","lat":35.618083,"lon":139.831667},{"route":"254","kp":"9.9","lat":35.617417,"lon":139.83225},{"route":"254","kp":"10","lat":35.61675,"lon":139.832833},{"route":"254","kp":"10.1","lat":35.616083,"lon":139.833417},{"route":"254","kp":"10.2","lat":35.615417,"lon":139.834},{"route":"254","kp":"10.3","lat":35.61475,"lon":139.834583},{"route":"254","kp":"10.4","lat":35.614083,"lon":139.835167},{"route":"254","kp":"10.5","lat":35.613417,"lon":139.83575},{"route":"254","kp":"10.6","lat":35.61275,"lon":139.836333},{"route":"254","kp":"10.7","lat":35.612083,"lon":139.836917},{"route":"254","kp":"10.8","lat":35.611417,"lon":139.8375},{"route":"254","kp":"10.9","lat":35.61075,"lon":139.838083},{"route":"254","kp":"11","lat":35.610083,"lon":139.838667},{"route":"254","kp":"11.1","lat":35.609417,"lon":139.83925},{"route":"254","kp":"11.2","lat":35.60875,"lon":139.839833},{"route":"254","kp":"11.3","lat":35.608083,"lon":139.840417},{"route":"254","kp":"11.4","lat":35.607417,"lon":139.841},{"route":"254","kp":"11.5","lat":35.60675,"lon":139.841583},{"route":"254","kp":"11.6","lat":35.606083,"lon":139.842167},{"route":"254","kp":"11.7","lat":35.605417,"lon":139.84275},{"route":"254","kp":"11.8","lat":35.60475,"lon":139.843333},{"route":"254","kp":"11.9","lat":35.604083,"lon":139.843917},{"route":"254","kp":"12","lat":35.603417,"lon":139.8445},{"route":"254","kp":"12.1","lat":35.60275,"lon":139.845083},{"route":"254","kp":"12.2","lat":35.602083,"lon":139.845667},{"route":"254","kp":"12.3","lat":35.601417,"lon":139.84625},{"route":"254","kp":"12.4","lat":35.60075,"lon":139.846833},{"route":"254","kp":"12.5","lat":35.600083,"lon":139.847417},{"route":"254","kp":"12.6","lat":35.599417,"lon":139.848},{"route":"254","kp":"12.7","lat":35.59875,"lon":139.848583},{"route":"254","kp":"12.8","lat":35.598083,"lon":139.849167},{"route":"254","kp":"12.9","lat":35.597417,"lon":139.84975},{"route":"254","kp":"13","lat":35.59675,"lon":139.850333}];
+
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('dataCount').textContent = kpData.length.toLocaleString();
+        });
 
         function getLocation() {
-            if (!dataLoaded) {
-                showError('キロポストデータが読み込まれていません');
-                return;
-            }
-            
-            const btn = document.getElementById('getLocationBtn');
-            const status = document.getElementById('status');
+            const loading = document.getElementById('loading');
+            const result = document.getElementById('result');
             const error = document.getElementById('error');
-            const resultMain = document.getElementById('resultMain');
-            const addressSection = document.getElementById('addressSection');
+            const btn = document.getElementById('getLocationBtn');
             
+            result.classList.remove('show');
+            error.classList.remove('show');
+            loading.classList.add('show');
             btn.disabled = true;
-            status.textContent = '位置情報を取得中...';
-            error.classList.add('hidden');
-            resultMain.classList.add('hidden');
-            addressSection.classList.add('hidden');
-            
+
             if (!navigator.geolocation) {
-                showError('お使いのブラウザは位置情報に対応していません');
+                showError('お使いのブラウザは位置情報をサポートしていません。');
+                loading.classList.remove('show');
                 btn.disabled = false;
                 return;
             }
-            
+
             navigator.geolocation.getCurrentPosition(
                 position => {
                     const lat = position.coords.latitude;
                     const lon = position.coords.longitude;
-                    const accuracy = position.coords.accuracy;
-                    
-                    document.getElementById('coords').textContent = 
-                        `緯度: ${lat.toFixed(6)}, 経度: ${lon.toFixed(6)} (精度: ±${accuracy.toFixed(0)}m)`;
-                    
-                    const nearest = findNearestRoad(lat, lon);
-                    
-                    if (nearest) {
-                        displayResult(nearest);
-                        getBothSideAddresses(nearest, lat, lon);
-                        status.textContent = '位置情報取得成功';
-                    } else {
-                        showError('近くに登録された国道データが見つかりません（検索範囲: 500m以内）');
-                    }
-                    
-                    btn.disabled = false;
+                    processLocation(lat, lon);
                 },
-                error => {
-                    let errorMsg = '位置情報の取得に失敗しました';
-                    
-                    switch(error.code) {
-                        case error.PERMISSION_DENIED:
-                            errorMsg = '位置情報の使用が許可されていません。ブラウザの設定を確認してください。';
-                            break;
-                        case error.POSITION_UNAVAILABLE:
-                            errorMsg = '位置情報が利用できません';
-                            break;
-                        case error.TIMEOUT:
-                            errorMsg = '位置情報の取得がタイムアウトしました';
-                            break;
-                    }
-                    
-                    showError(errorMsg);
+                err => {
+                    loading.classList.remove('show');
                     btn.disabled = false;
+                    let message = '位置情報の取得に失敗しました。';
+                    if (err.code === 1) {
+                        message = '位置情報の利用が許可されていません。ブラウザの設定を確認してください。';
+                    } else if (err.code === 2) {
+                        message = '位置情報を取得できませんでした。GPS信号を確認してください。';
+                    } else if (err.code === 3) {
+                        message = '位置情報の取得がタイムアウトしました。もう一度お試しください。';
+                    }
+                    showError(message);
                 },
                 {
                     enableHighAccuracy: true,
-                    timeout: 10000,
+                    timeout: 15000,
                     maximumAge: 0
                 }
             );
         }
-        
-        function findNearestRoad(lat, lon) {
-            let nearest = null;
-            let minDistance = Infinity;
-            
-            roadData.forEach(road => {
-                const distance = calculateDistance(lat, lon, road.lat, road.lon);
-                
-                if (distance < minDistance) {
-                    minDistance = distance;
-                    nearest = {
-                        ...road,
-                        distance: distance
-                    };
-                }
-            });
-            
-            if (nearest && nearest.distance <= 500) {
-                return nearest;
-            }
-            
-            return null;
-        }
-        
-        function calculateDistance(lat1, lon1, lat2, lon2) {
-            const R = 6371000;
-            const dLat = toRad(lat2 - lat1);
-            const dLon = toRad(lon2 - lon1);
-            
-            const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-                      Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
-                      Math.sin(dLon / 2) * Math.sin(dLon / 2);
-            
-            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-            const distance = R * c;
-            
-            return distance;
-        }
-        
-        function toRad(degrees) {
-            return degrees * Math.PI / 180;
-        }
-        
-        function displayResult(road) {
-            const resultMain = document.getElementById('resultMain');
-            const routeNumber = document.getElementById('routeNumber');
-            const kilopost = document.getElementById('kilopost');
-            const distance = document.getElementById('distance');
-            
-            resultMain.textContent = `現在位置は${road.route} ${road.kp.toFixed(2)}kpです`;
-            resultMain.classList.remove('hidden');
-            
-            routeNumber.textContent = `国道${road.route}号`;
-            kilopost.textContent = `${road.kp.toFixed(2)}kp`;
-            distance.textContent = `${road.distance.toFixed(0)}m`;
-        }
-        
-        function getBothSideAddresses(road, currentLat, currentLon) {
-            const loadingAddress = document.getElementById('loadingAddress');
-            const addressSection = document.getElementById('addressSection');
-            
-            loadingAddress.classList.remove('hidden');
-            
-            const nextPoint = findNextKilopost(road);
-            if (!nextPoint) {
-                loadingAddress.classList.add('hidden');
+
+        function processLocation(lat, lon) {
+            if (kpData.length === 0) {
+                showError('キロポストデータが読み込まれていません。');
+                document.getElementById('loading').classList.remove('show');
+                document.getElementById('getLocationBtn').disabled = false;
                 return;
             }
-            
-            const perpendicular = calculatePerpendicular(road.lat, road.lon, nextPoint.lat, nextPoint.lon);
-            const offset = 0.0001;
-            
-            const side1Lat = road.lat + perpendicular.lat * offset;
-            const side1Lon = road.lon + perpendicular.lon * offset;
-            const side2Lat = road.lat - perpendicular.lat * offset;
-            const side2Lon = road.lon - perpendicular.lon * offset;
-            
-            Promise.all([
-                getAddress(side1Lat, side1Lon),
-                getAddress(side2Lat, side2Lon)
-            ]).then(([address1, address2]) => {
-                loadingAddress.classList.add('hidden');
-                
-                document.getElementById('addressUp').textContent = address1 || '取得できませんでした';
-                document.getElementById('addressDown').textContent = address2 || '取得できませんでした';
-                
-                addressSection.classList.remove('hidden');
-            }).catch(error => {
-                console.error('住所取得エラー:', error);
-                loadingAddress.classList.add('hidden');
+
+            let minDistance = Infinity;
+            let nearestPoint = null;
+
+            kpData.forEach(point => {
+                const distance = calculateDistance(lat, lon, point.lat, point.lon);
+                if (distance < minDistance) {
+                    minDistance = distance;
+                    nearestPoint = point;
+                }
             });
-        }
-        
-        function findNextKilopost(currentRoad) {
-            const sameRoute = roadData.filter(r => r.route === currentRoad.route && r.kp > currentRoad.kp);
-            if (sameRoute.length > 0) {
-                return sameRoute[0];
+
+            if (nearestPoint && minDistance < 0.5) {
+                getAddressFromCoords(lat, lon, nearestPoint, minDistance);
+            } else {
+                showError(`近くに該当する国道が見つかりませんでした。<br>最寄りの地点まで約${(minDistance * 1000).toFixed(0)}mです。`);
+                document.getElementById('loading').classList.remove('show');
+                document.getElementById('getLocationBtn').disabled = false;
             }
-            return null;
         }
-        
-        function calculatePerpendicular(lat1, lon1, lat2, lon2) {
-            const dx = lon2 - lon1;
-            const dy = lat2 - lat1;
-            const length = Math.sqrt(dx * dx + dy * dy);
-            
-            return {
-                lat: -dx / length,
-                lon: dy / length
-            };
+
+        function calculateDistance(lat1, lon1, lat2, lon2) {
+            const R = 6371;
+            const dLat = (lat2 - lat1) * Math.PI / 180;
+            const dLon = (lon2 - lon1) * Math.PI / 180;
+            const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                      Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                      Math.sin(dLon/2) * Math.sin(dLon/2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+            return R * c;
         }
-        
-        function getAddress(lat, lon) {
-            const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&addressdetails=1&accept-language=ja`;
-            
-            return fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    if (data && data.address) {
-                        const addr = data.address;
-                        let result = '';
-                        
-                        if (addr.town) result += addr.town;
-                        else if (addr.suburb) result += addr.suburb;
-                        else if (addr.neighbourhood) result += addr.neighbourhood;
-                        
-                        if (addr.house_number) result += addr.house_number;
-                        
-                        return result || data.display_name;
+
+        async function getAddressFromCoords(lat, lon, kpPoint, distance) {
+            try {
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                
+                const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&zoom=18&addressdetails=1`, {
+                    headers: {
+                        'Accept-Language': 'ja',
+                        'User-Agent': 'ManseBashiKun/0.1'
                     }
-                    return null;
-                })
-                .catch(error => {
-                    console.error('住所取得エラー:', error);
-                    return null;
                 });
+                
+                if (!response.ok) throw new Error('住所取得エラー');
+                const data = await response.json();
+                
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                
+                const bearing = Math.atan2(
+                    Math.cos(lat * Math.PI / 180) * Math.sin(0.0005),
+                    Math.cos(lat * Math.PI / 180) * Math.sin(0.0005)
+                );
+                const offset = 0.0002;
+                const lat2 = lat + offset * Math.cos(bearing + Math.PI / 2);
+                const lon2 = lon + offset * Math.sin(bearing + Math.PI / 2);
+                
+                const response2 = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat2}&lon=${lon2}&zoom=18&addressdetails=1`, {
+                    headers: {
+                        'Accept-Language': 'ja',
+                        'User-Agent': 'ManseBashiKun/0.1'
+                    }
+                });
+                
+                if (!response2.ok) throw new Error('住所取得エラー');
+                const data2 = await response2.json();
+
+                displayResult(kpPoint, data, data2, distance);
+            } catch (err) {
+                showError('住所の取得に失敗しました。インターネット接続を確認してください。<br>キロポスト情報のみ表示します。');
+                displayResultWithoutAddress(kpPoint, distance);
+            }
         }
-        
-        function showError(message) {
-            const error = document.getElementById('error');
-            const status = document.getElementById('status');
+
+        function extractAddress(data) {
+            if (!data.address) return '住所不明';
+            const addr = data.address;
+            let result = '';
             
-            error.textContent = message;
-            error.classList.remove('hidden');
-            status.textContent = 'エラーが発生しました';
+            if (addr.city) result += addr.city;
+            else if (addr.town) result += addr.town;
+            
+            if (addr.suburb) result += addr.suburb;
+            if (addr.quarter) result += addr.quarter;
+            if (addr.neighbourhood) result += addr.neighbourhood;
+            if (addr.road) result += addr.road;
+            if (addr.house_number) result += addr.house_number;
+            
+            return result || (data.display_name ? data.display_name.split(',')[0] : '住所不明');
+        }
+
+        function displayResult(kpPoint, addr1Data, addr2Data, distance) {
+            const resultText = document.getElementById('resultText');
+            const loading = document.getElementById('loading');
+            const result = document.getElementById('result');
+            const btn = document.getElementById('getLocationBtn');
+
+            const addr1 = extractAddress(addr1Data);
+            const addr2 = extractAddress(addr2Data);
+
+            let html = `<p><strong>現在位置は${kpPoint.route} ${kpPoint.kp}kpです。</strong></p>`;
+            html += `<div class="address-info">`;
+            html += `<p>上り線の住所は${addr1}、下り線の住所は${addr2}です。</p>`;
+            html += `<p style="font-size: 12px; color: #999; margin-top: 10px;">地点までの距離: 約${(distance * 1000).toFixed(0)}m</p>`;
+            html += `</div>`;
+
+            resultText.innerHTML = html;
+            loading.classList.remove('show');
+            result.classList.add('show');
+            btn.disabled = false;
+        }
+
+        function displayResultWithoutAddress(kpPoint, distance) {
+            const resultText = document.getElementById('resultText');
+            const loading = document.getElementById('loading');
+            const result = document.getElementById('result');
+            const btn = document.getElementById('getLocationBtn');
+
+            let html = `<p><strong>現在位置は${kpPoint.route} ${kpPoint.kp}kpです。</strong></p>`;
+            html += `<p style="font-size: 12px; color: #999; margin-top: 10px;">地点までの距離: 約${(distance * 1000).toFixed(0)}m</p>`;
+
+            resultText.innerHTML = html;
+            loading.classList.remove('show');
+            result.classList.add('show');
+            btn.disabled = false;
+        }
+
+        function showError(message) {
+            const errorText = document.getElementById('errorText');
+            const error = document.getElementById('error');
+            errorText.innerHTML = message;
+            error.classList.add('show');
         }
     </script>
 </body>
